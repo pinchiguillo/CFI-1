@@ -1,6 +1,8 @@
 # Caso Final Integrador 1: Misión Espacial Cronos
 [Link Repositorio](https://github.com/pinchiguillo/CFI-1)
 
+[Documentacion del proyecto](docs/main.md)
+
 ## Contexto
 Los alumnos son parte de un equipo de científicos y programadores en una misión espacial llamada "Cronos". La misión tiene como objetivo establecer una base en un nuevo planeta. Los estudiantes deben desarrollar un sistema de software integral que asista en la planificación, establecimiento, y mantenimiento de la base. Este sistema debe ser capaz de manejar tiempos precisos, calcular recursos, comunicarse con la Tierra, y asegurar la supervivencia y eficiencia de la base.
 

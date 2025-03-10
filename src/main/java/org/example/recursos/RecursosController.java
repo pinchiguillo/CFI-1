@@ -1,6 +1,6 @@
 package org.example.recursos;
 
-public class RecursosSuministros {
+public class RecursosController {
 
     /**
      * Calcula el consumo total de un recurso dado un consumo diario y una cantidad de días.
@@ -55,41 +55,5 @@ public class RecursosSuministros {
 
         double promedio = consumos.length > 0 ? suma / consumos.length : 0;
         return new Stats(promedio, min, max);
-    }
-
-    /**
-     * Clase interna para almacenar las estadísticas calculadas.
-     */
-    public static class Stats {
-        private double promedio;
-        private double min;
-        private double max;
-
-        public Stats(double promedio, double min, double max) {
-            this.promedio = promedio;
-            this.min = min;
-            this.max = max;
-        }
-
-        public double getPromedio() {
-            return promedio;
-        }
-
-        public double getMin() {
-            return min;
-        }
-
-        public double getMax() {
-            return max;
-        }
-
-        @Override
-        public String toString() {
-            return "Stats{" +
-                    "promedio=" + promedio +
-                    ", min=" + min +
-                    ", max=" + max +
-                    '}';
-        }
     }
 }

@@ -1,6 +1,6 @@
 package org.example.navegadorEstelar;
 
-public class NavegadorEstelar {
+public class Controller {
 
     /**
      * Multiplica dos matrices para optimizar rutas y recursos.
@@ -37,33 +37,35 @@ public class NavegadorEstelar {
     }
 
     /**
-     * Simula un terreno generando una matriz de enteros.
+     * Simula un terreno generando una matriz de enteros y encapsulándola en un objeto Mapa.
      * Cada celda representa el "costo" o dificultad de desplazarse por esa zona.
      * Los valores se generan aleatoriamente entre 1 y 10, donde valores altos indican mayor dificultad.
      *
      * @param filas Número de filas de la matriz.
      * @param columnas Número de columnas de la matriz.
-     * @return Una matriz que representa el terreno.
+     * @return Objeto Mapa que representa el terreno.
      */
-    public int[][] simularTerreno(int filas, int columnas) {
+    public Mapa simularTerreno(int filas, int columnas) {
         int[][] terreno = new int[filas][columnas];
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
                 terreno[i][j] = (int)(Math.random() * 10) + 1;
             }
         }
-        return terreno;
+        return new Mapa(terreno);
     }
 
     /**
      * Optimiza la ruta de exploración multiplicando la matriz del terreno por una matriz de factores.
      * La matriz de factores puede representar la influencia de variables como consumo de recursos o tiempo.
      *
-     * @param terreno Matriz que representa el terreno.
+     * @param terreno Objeto Mapa que representa el terreno.
      * @param factores Matriz de factores de influencia.
-     * @return Matriz resultante que representa la ruta optimizada.
+     * @return Objeto Mapa resultante que representa la ruta optimizada.
      */
-    public int[][] optimizarRuta(int[][] terreno, int[][] factores) {
-        return multiplicarMatrices(terreno, factores);
+    public Mapa optimizarRuta(Mapa terreno, int[][] factores) {
+        int[][] terrenoMatriz = terreno.getMatriz();
+        int[][] resultado = multiplicarMatrices(terrenoMatriz, factores);
+        return new Mapa(resultado);
     }
 }

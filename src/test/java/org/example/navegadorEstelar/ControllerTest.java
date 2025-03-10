@@ -4,11 +4,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 
-public class NavegadorEstelarTest {
+public class ControllerTest {
 
     @Test
     public void testMultiplicarMatricesCorrecto() {
-        NavegadorEstelar navegador = new NavegadorEstelar();
+        Controller controller = new Controller();
         int[][] a = {
                 {1, 2},
                 {3, 4}
@@ -21,13 +21,13 @@ public class NavegadorEstelarTest {
                 {19, 22},
                 {43, 50}
         };
-        int[][] resultado = navegador.multiplicarMatrices(a, b);
+        int[][] resultado = controller.multiplicarMatrices(a, b);
         assertTrue(Arrays.deepEquals(esperado, resultado));
     }
 
     @Test
     public void testMultiplicarMatricesDimensionesIncorrectas() {
-        NavegadorEstelar navegador = new NavegadorEstelar();
+        Controller controller = new Controller();
         int[][] a = {
                 {1, 2, 3},
                 {4, 5, 6}
@@ -37,7 +37,7 @@ public class NavegadorEstelarTest {
                 {9, 10}
         };
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            navegador.multiplicarMatrices(a, b);
+            controller.multiplicarMatrices(a, b);
         });
         String mensajeEsperado = "Las matrices no se pueden multiplicar";
         String mensajeReal = exception.getMessage();
@@ -46,10 +46,11 @@ public class NavegadorEstelarTest {
 
     @Test
     public void testSimularTerrenoDimensiones() {
-        NavegadorEstelar navegador = new NavegadorEstelar();
+        Controller controller = new Controller();
         int filas = 4;
         int columnas = 5;
-        int[][] terreno = navegador.simularTerreno(filas, columnas);
+        Mapa mapaTerreno = controller.simularTerreno(filas, columnas);
+        int[][] terreno = mapaTerreno.getMatriz();
         assertEquals(filas, terreno.length);
         for (int[] fila : terreno) {
             assertEquals(columnas, fila.length);
@@ -58,19 +59,20 @@ public class NavegadorEstelarTest {
 
     @Test
     public void testOptimizarRuta() {
-        NavegadorEstelar navegador = new NavegadorEstelar();
+        Controller controller = new Controller();
         // Matriz del terreno
         int[][] terreno = {
                 {2, 3},
                 {1, 4}
         };
-        // Matriz de factores (por ejemplo, representa influencia de variables)
+        // Matriz de factores (por ejemplo, la matriz identidad)
         int[][] factores = {
                 {1, 0},
                 {0, 1}
         };
-        // Al multiplicar por la matriz identidad, se espera obtener la misma matriz del terreno.
-        int[][] rutaOptima = navegador.optimizarRuta(terreno, factores);
-        assertTrue(Arrays.deepEquals(terreno, rutaOptima));
+        // Se encapsula el terreno en un objeto Mapa.
+        Mapa mapaTerreno = new Mapa(terreno);
+        Mapa rutaOptima = controller.optimizarRuta(mapaTerreno, factores);
+        assertTrue(Arrays.deepEquals(terreno, rutaOptima.getMatriz()));
     }
 }

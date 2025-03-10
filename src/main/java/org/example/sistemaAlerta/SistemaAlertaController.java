@@ -3,14 +3,13 @@ package org.example.sistemaAlerta;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SistemaAlerta {
+public class SistemaAlertaController {
 
-    // Umbrales seguros para cada variable ambiental
-    private static final double UMBRAL_RADIACION = 100.0;
-    private static final double UMBRAL_TEMPERATURA_MIN = -20.0;
-    private static final double UMBRAL_TEMPERATURA_MAX = 50.0;
-    private static final double UMBRAL_PRESION_MIN = 90.0;
-    private static final double UMBRAL_PRESION_MAX = 110.0;
+    private SistemaAlertaModel model;
+
+    public SistemaAlertaController() {
+        this.model = new SistemaAlertaModel();
+    }
 
     /**
      * Revisa si el nivel de radiación excede el umbral seguro.
@@ -18,7 +17,7 @@ public class SistemaAlerta {
      * @return true si el nivel es superior al umbral; false en caso contrario.
      */
     public boolean revisarRadiacion(double nivelRadiacion) {
-        return nivelRadiacion > UMBRAL_RADIACION;
+        return nivelRadiacion > model.getUmbralRadiacion();
     }
 
     /**
@@ -27,7 +26,7 @@ public class SistemaAlerta {
      * @return true si la temperatura es inferior a UMBRAL_TEMPERATURA_MIN o superior a UMBRAL_TEMPERATURA_MAX.
      */
     public boolean revisarTemperatura(double temperatura) {
-        return (temperatura < UMBRAL_TEMPERATURA_MIN || temperatura > UMBRAL_TEMPERATURA_MAX);
+        return (temperatura < model.getUmbralTemperaturaMin() || temperatura > model.getUmbralTemperaturaMax());
     }
 
     /**
@@ -36,7 +35,7 @@ public class SistemaAlerta {
      * @return true si la presión es inferior a UMBRAL_PRESION_MIN o superior a UMBRAL_PRESION_MAX.
      */
     public boolean revisarPresion(double presion) {
-        return (presion < UMBRAL_PRESION_MIN || presion > UMBRAL_PRESION_MAX);
+        return (presion < model.getUmbralPresionMin() || presion > model.getUmbralPresionMax());
     }
 
     /**
@@ -82,12 +81,12 @@ public class SistemaAlerta {
             throw new IllegalArgumentException("El número debe ser mayor a 1 para descomponer en factores primos.");
         }
         List<Integer> factores = new ArrayList<>();
-        // Descomponer factores 2
+        // Extraer factores de 2
         while (numero % 2 == 0) {
             factores.add(2);
             numero /= 2;
         }
-        // Descomponer factores impares
+        // Extraer factores impares
         for (int i = 3; i <= Math.sqrt(numero); i += 2) {
             while (numero % i == 0) {
                 factores.add(i);
